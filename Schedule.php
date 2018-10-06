@@ -15,6 +15,7 @@ class Schedule {
     private $db;
 
     private $week;
+    private $maxWeek;
 
     private $schedulePage;
 
@@ -22,8 +23,11 @@ class Schedule {
 		global $wpdb;
         $this->db = &$wpdb;
         $this->schedulePage = Util::getCurrentPageUrl();
+        $this->maxWeek = $this->getMaxWeek();
         if(null != $curWeek) {
             $this->main($curWeek);
+        } else {
+            $this->main($this->maxWeek);
         }
     }
 
@@ -56,9 +60,14 @@ class Schedule {
 		$matchList = $this->db->get_results($matchQuery, ARRAY_A);
         $this->displayMatchList($matchList);
 	}
-	
-	public function displayWeekList() {
-		$maxWeek = $this->db->get_var("Select MAX(week) as maxweek from matchup") or print("Error Getting week count!");
+
+	public function getMaxWeek() {
+        $maxWeek = $this->db->get_var("Select MAX(week) as maxweek from matchup") or print("Error Getting week count!");
+        return $maxWeek;
+    }
+
+    public function displayWeekList() {
+		$maxWeek = $this->getMaxWeek();
 		print('<div id = "menu">');
 		print('<table><thead>');
 		for($i=1; $i <= $maxWeek; $i++) {
@@ -67,7 +76,7 @@ class Schedule {
 		}
 		print('</thead></table></div>');
 	}
-	
+
 	public function displayTeamList($teamId) {
 		//$teamId = $arr['teamId'];
 		$query = $this->db->prepare("Select * from matchup where team1id = %d OR team2id = %d",$teamId, $teamId);
@@ -122,3 +131,4 @@ function display_schedule($args = null) {
     ob_end_clean();
     return $output;
 }
+

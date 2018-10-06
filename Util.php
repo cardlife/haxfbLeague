@@ -6,7 +6,7 @@
 
 class Util {
 	
-	public static $currWeek = 2;
+	public static $currWeek = 1;
 
     private static $counter = 0;
     private static $pageList = array();

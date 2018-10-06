@@ -38,11 +38,11 @@ class Player {
 	}
 	public function __construct2($row) {
 		$this->id = $row["id"];
-		$this->name = $row["username"];
+		$this->name = $row["name"];
 		$this->password = $row["password"];
 		$this->email = $row["email"];
 		$this->teamid = $row["teamid"];
-		$this->alias = $row["alias"];
+		$this->alias = $row["name"];
 	}
 	public function __construct3($name, $password, $email, $teamid, $alias) {
 		$this->name = $name;
@@ -95,8 +95,8 @@ class Player {
 	}
 	//update player in database, if changes made
 	public function updateDb() {
-		$query = $this->db->prepare("Update player SET username = %s , password = %s , email = %s ,
-		teamid = %d , alias = %s where id = %d",$this->name,$this->password,$this->email,$this->teamid,$this->alias,$this->id);
+		$query = $this->db->prepare("Update player SET name = %s,
+		teamid = %d  where id = %d",$this->name,$this->teamid,$this->id);
         $this->db->query($query);
 	}
 	//remove player from database
@@ -106,8 +106,8 @@ class Player {
 	}
 	//add player to database
 	public function insertToDb() {
-		$query = $this->db->prepare("Insert into player (id, username, password, email, teamid, alias)
-		Values('', %s, %s, %s, %d, %s)", $this->name,$this->password, $this->email, $this->teamid, $this->alias );
+		$query = $this->db->prepare("Insert into player (id, name, teamid)
+		Values('', %s, %d)", $this->name, $this->teamid);
         $this->db->query($query)
 		    or print("Error adding player to db! <br><br>");
 	}

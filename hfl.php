@@ -9,8 +9,18 @@ License: GPL2
 */
 
 
-loadLibraries();
+add_action('init', 'load_libraries');
+register_activation_hook( __FILE__, 'hfl_install' );
 
+function hfl_install() {
+    require_once (dirname (__FILE__) . '/install.php');
+    setupHFL();
+}
+
+
+function load_libraries(){
+    loadLibraries();
+}
 
 /**
  * Simple utility method that checks if current user has an 'administrator' role.
