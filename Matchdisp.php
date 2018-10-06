@@ -114,7 +114,7 @@ class Matchdisp {
         $match = new Matchup($matchId);
         for($i=0; $i < Constants::NUM_TEAMS; $i++) {
             $team =  $match->getTeam($i);
-            $query = $this->db->prepare("Select stats.playerid as playerid, player.username as playername {$statQuery}
+            $query = $this->db->prepare("Select stats.playerid as playerid, player.name as playername {$statQuery}
                                 from stats, player where stats.matchupid = %d and stats.teamid = %d
                                 and stats.playerid = player.id group by stats.playerid", $matchId, $team->getId());
             $teamStatList =  $this->db->get_results($query, ARRAY_A)

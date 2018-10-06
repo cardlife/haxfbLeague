@@ -100,7 +100,7 @@ class Teamdisp {
             $statQuery .= ", ".$stat->getSelectPartWithLabel();
         }
 
-        $query = $this->db->prepare("Select player.id as playerid, player.username as playername {$statQuery}
+        $query = $this->db->prepare("Select player.id as playerid, player.name as playername {$statQuery}
                                 from player left join stats on (player.id = stats.playerid) where player.teamid = %d  group by player.id", $teamId);
         $teamStatList =  $this->db->get_results($query, ARRAY_A)
 		or print("Error retrieving team stats! <br>");

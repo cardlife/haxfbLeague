@@ -86,7 +86,7 @@ class Leadersdisp {
 
         $query = "Select player.id as playerid, player.username as playername {$statQuery}
                                 from player left join stats on (player.id = stats.playerid)
-                                where player.username != '' group by player.id";
+                                where player.name != '' group by player.id";
         $teamStatList =  $this->db->get_results($query, ARRAY_A)
         or print("Error retrieving player stats! <br>");
         print("<h2> Player Leaders:</h2> <br>");

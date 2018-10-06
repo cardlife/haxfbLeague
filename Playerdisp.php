@@ -74,7 +74,7 @@ class Playerdisp {
             $statQuery .= ", ".$stat->getSelectPartWithLabel();
         }
 
-        $queryString = $this->db->prepare("Select player.id as playerid, player.username as playername {$statQuery}
+        $queryString = $this->db->prepare("Select player.id as playerid, player.name as playername {$statQuery}
           from player left join stats on (stats.playerid = player.id), team
 		  where player.id = %d and player.teamid = team.id group by player.id", $playerId);
 
