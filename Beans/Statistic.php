@@ -10,7 +10,8 @@
 //namespace hfl\Beans\Statistic;
 
 
-interface Statistic {
+interface Statistic
+{
     /**
      * This is a Statistic interface that defines what each one should implement
      */

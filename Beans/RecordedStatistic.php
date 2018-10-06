@@ -10,7 +10,8 @@
 //namespace hfl\Beans\RecordedStatistic;
 include_once("Statistic.php");
 
-class RecordedStatistic implements  Statistic{
+class RecordedStatistic implements Statistic
+{
     private $displayName;
     private $logicalName;
     private $value;
@@ -19,7 +20,7 @@ class RecordedStatistic implements  Statistic{
     //Construct Stat here
     function __construct($logicalName, $shortCode, $displayName)
     {
-       $this->logicalName = $logicalName;
+        $this->logicalName = $logicalName;
         $this->displayName = $displayName;
         $this->shortCode = $shortCode;
     }
@@ -58,12 +59,12 @@ class RecordedStatistic implements  Statistic{
      */
     public function getLogicalName()
     {
-       return $this->logicalName;
+        return $this->logicalName;
     }
 
     public function getDisplayName()
     {
-       return $this->displayName;
+        return $this->displayName;
     }
 
     public function getSelectPartWithLabel()
@@ -73,6 +74,6 @@ class RecordedStatistic implements  Statistic{
 
     public function getShortCode()
     {
-       return $this->shortCode;
+        return $this->shortCode;
     }
 }

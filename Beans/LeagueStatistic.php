@@ -15,3 +15,4 @@
         $this->addStatistic(new RecordedStatistic("tackles", "Tackles"));
 */
 }
+?>

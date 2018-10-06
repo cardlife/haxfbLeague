@@ -10,7 +10,6 @@ print("<div id = 'title'> League System <br> Create Your Own League! </div>");
 print("</div></div>");
 
 
-
 include('Util.php');
 //Print the navigation menu:
 //Util::printNav();

@@ -2,42 +2,45 @@
 
 require_once('Schedule.php');
 
-class Playerdisp {
+class Playerdisp
+{
     /** @var  wpdb $db */
     private $db;
 
     /** @var Match $match */
     private $playerId = null;
 
-    public function __construct($playerId = null) {
+    public function __construct($playerId = null)
+    {
         global $wpdb;
-        $this->db = &$wpdb;
+        $this->db = & $wpdb;
 
         Util::updatePageUrl(Constants::PAGE_PLAYER_DISP, get_permalink());
 
-        if(null != $playerId) {
+        if (null != $playerId) {
             $this->playerId = $playerId;
-        } else if(isset($_GET['pId'])){
+        } else if (isset($_GET['pId'])) {
             $this->playerId = $_GET['pId'];
         }
         $this->main();
     }
 
-    public function main() {
+    public function main()
+    {
         $statsInstance = Stats::getInstance();
         $viewList = $statsInstance->getViewList();
         $standardView = $statsInstance->getRecordedView();
 
         print("<body onLoad = \"hideAllDivs('statView'); toggleVisibility('{$standardView->getDisplayName()}','statView');  \">");
         print("<div id = 'leagueContent'>");
-        if(null != $this->playerId) {
+        if (null != $this->playerId) {
 
 
             print("<div id = 'viewTabs'>");
             print("<table> <thead>");
             //display a toggle for each item
             /** @var View $view */
-            foreach($viewList as $view) {
+            foreach ($viewList as $view) {
                 print("<th> <a onclick=\"toggleVisibility('{$view->getDisplayName()}', 'statView')\"
                         class = \"statMenu\"> {$view->getDisplayName()} </a> </th>");
             }
@@ -50,7 +53,7 @@ class Playerdisp {
 
 
             /** @var View $view */
-            foreach($viewList as $view) {
+            foreach ($viewList as $view) {
                 print("<div id='{$view->getDisplayName()}' class= 'statView'>");
                 $this->dispPlayerTotals($this->playerId, $view);
                 print("<br><br>");
@@ -63,7 +66,8 @@ class Playerdisp {
         }
     }
 
-    public function dispPlayerTotals($playerId, $view) {
+    public function dispPlayerTotals($playerId, $view)
+    {
         /** @var View $view */
         $dummyStats = $view->getStatList();
         $statQuery = "";
@@ -71,7 +75,7 @@ class Playerdisp {
          * @var Statistic $stat
          */
         foreach ($dummyStats as $stat) {
-            $statQuery .= ", ".$stat->getSelectPartWithLabel();
+            $statQuery .= ", " . $stat->getSelectPartWithLabel();
         }
 
         $queryString = $this->db->prepare("Select player.id as playerid, player.name as playername {$statQuery}
@@ -86,7 +90,8 @@ class Playerdisp {
     }
 
 
-    public function dispPlayer($playerId, $view) {
+    public function dispPlayer($playerId, $view)
+    {
         /** @var View $view */
         $dummyStats = $view->getStatList();
         $statQuery = "";
@@ -94,13 +99,13 @@ class Playerdisp {
          * @var Statistic $stat
          */
         foreach ($dummyStats as $stat) {
-            $statQuery .= ", ".$stat->getSelectPartWithLabel();
+            $statQuery .= ", " . $stat->getSelectPartWithLabel();
         }
 
         $query = $this->db->prepare("Select IFNULL(stats.matchupid,0) as matchid {$statQuery}
                                 from player left join stats on (stats.playerid = player.id) where player.id = %d
             group by matchid ", $this->playerId);
-        $playerStatList =  $this->db->get_results($query, ARRAY_A)
+        $playerStatList = $this->db->get_results($query, ARRAY_A)
         or print("Error retrieving player stats! <br>");
 
         Util::dispStats($playerStatList, $view);
@@ -111,9 +116,10 @@ class Playerdisp {
 
 add_shortcode("display_player", "display_player");
 
-function display_player($args = null) {
+function display_player($args = null)
+{
     $id = null;
-    if(isset($args["id"])) {
+    if (isset($args["id"])) {
         $id = $args["id"];
     }
     ob_start();

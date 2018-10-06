@@ -10,15 +10,16 @@
 //namespace hfl\Beans\CalculatedStatistic;
 
 
-class CalculatedStatistic implements  Statistic{
+class CalculatedStatistic implements Statistic
+{
 
     private $logicalName,
-            $shortCode,
-            $displayName,
-            $selectPart,
-            $fromPart,
-            $wherePart,
-            $value;
+        $shortCode,
+        $displayName,
+        $selectPart,
+        $fromPart,
+        $wherePart,
+        $value;
 
 
     function __construct($logicalName, $shortCode, $displayName, $selectPart = "", $fromPart = "", $wherePart = "")
@@ -51,12 +52,12 @@ class CalculatedStatistic implements  Statistic{
 
     public function getValue()
     {
-         return $this->value;
+        return $this->value;
     }
 
     public function setValue($value)
     {
-         $this->value = $value;
+        $this->value = $value;
     }
 
     /**

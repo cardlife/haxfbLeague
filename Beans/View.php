@@ -6,7 +6,8 @@
  * Time: 10:58 PM
  * To change this template use File | Settings | File Templates.
  */
-class View {
+class View
+{
 
     /** @var array $statList */
     private $statList;
@@ -23,8 +24,8 @@ class View {
     {
         $this->displayName = $name;
         $this->shortCode = $shortCode;
-        if(null == $stats || !is_array($stats)) {
-           $this->statList = array();
+        if (null == $stats || !is_array($stats)) {
+            $this->statList = array();
         } else {
             $this->statList = $stats;
         }
@@ -32,19 +33,22 @@ class View {
     }
 
 
-    public function getStatList() {
+    public function getStatList()
+    {
         return $this->statList;
     }
 
-    public function addStat(Statistic $stat) {
+    public function addStat(Statistic $stat)
+    {
         array_push($this->statList, $stat);
     }
 
-    public function displayTableHeader() {
+    public function displayTableHeader()
+    {
         $statTableHeader = "";
         /** @var Statistic $stat */
         foreach ($this->statList as $stat) {
-            if($this->shortCode) {
+            if ($this->shortCode) {
                 $statName = $stat->getShortCode();
                 $toolTip = $stat->getDisplayName();
             } else {
@@ -56,7 +60,8 @@ class View {
         return $statTableHeader;
     }
 
-    public function displayTableValues() {
+    public function displayTableValues()
+    {
         $statTableValue = "";
         /** @var Statistic $stat */
         foreach ($this->statList as $stat) {
@@ -66,8 +71,9 @@ class View {
         return $statTableValue;
     }
 
-    public function setShortCode($shortCode) {
-         $this->shortCode = $shortCode;
+    public function setShortCode($shortCode)
+    {
+        $this->shortCode = $shortCode;
     }
 
     /**
@@ -81,13 +87,15 @@ class View {
     /**
      * @return mixed
      */
-    public function getDefaultSortValue() {
+    public function getDefaultSortValue()
+    {
         return $this->defaultSortValue;
     }
 
-    private function getIndex(Statistic $stat) {
-        for($i=0; $i<count($this->statList); $i++) {
-            if($stat->getLogicalName() == $this->statList[$i]->getLogicalName()) {
+    private function getIndex(Statistic $stat)
+    {
+        for ($i = 0; $i < count($this->statList); $i++) {
+            if ($stat->getLogicalName() == $this->statList[$i]->getLogicalName()) {
                 return $i;
             }
         }
@@ -107,7 +115,6 @@ class View {
         return array();
 
     }
-
 
 
 }

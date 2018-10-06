@@ -1,6 +1,7 @@
 <?php
 
-function setupHFL() {
+function setupHFL()
+{
     global $wpdb;
     createTable(setupMatchUpTable($wpdb));
     createTable(setupPlayerTable($wpdb));
@@ -8,17 +9,19 @@ function setupHFL() {
     createTable(setupTeamTable($wpdb));
 }
 
-function createTable($tableSql){
+function createTable($tableSql)
+{
     global $wpdb;
 
     $charset_collate = $wpdb->get_charset_collate();
 
-    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-    dbDelta( $tableSql." $charset_collate;");
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($tableSql . " $charset_collate;");
 }
 
 
-function setupMatchUpTable($wpdb) {
+function setupMatchUpTable($wpdb)
+{
 //    $table_name = $wpdb->prefix.'matchup';
     $table_name = 'matchup';
 
@@ -35,7 +38,8 @@ function setupMatchUpTable($wpdb) {
 	)";
 }
 
-function setupPlayerTable($wpdb) {
+function setupPlayerTable($wpdb)
+{
 //    $table_name = $wpdb->prefix.'player';
     $table_name = 'player';
 
@@ -48,7 +52,8 @@ function setupPlayerTable($wpdb) {
 }
 
 
-function setupStatsTable($wpdb) {
+function setupStatsTable($wpdb)
+{
 //    $table_name = $wpdb->prefix.'stats';
     $table_name = 'stats';
 
@@ -76,7 +81,8 @@ function setupStatsTable($wpdb) {
 }
 
 
-function setupTeamTable($wpdb) {
+function setupTeamTable($wpdb)
+{
     $table_name = 'team';
 
     return "CREATE TABLE $table_name (
